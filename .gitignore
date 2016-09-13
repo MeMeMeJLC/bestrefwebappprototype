@@ -243,3 +243,9 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/OpenWeatherConsumingApiTut
+/OpenWeatherConsumingApiTut.sln
+/prototype_console_app/
+/ref-app/
+/referee-web-app-prototype-13sept-16/
+/RefPrototypeAPI_v5/
