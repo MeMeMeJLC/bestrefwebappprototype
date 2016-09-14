@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -21,6 +23,11 @@ namespace WebApplication1.Models
         {
             /*db.Team.Add(item);
             db.SaveChanges*/
+            var url = "http://refprototypeapiv5.azurewebsites.net/Api/teams/";
+            HttpClient client = new HttpClient();
+            var response = client.PostAsJsonAsync<Team>(url, item);
+ 
+
             return item;
         }
 

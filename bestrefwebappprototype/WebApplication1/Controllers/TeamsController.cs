@@ -57,14 +57,20 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "team_id,team_name,team_coach_first_name,team_coach_last_name")] Team team)
         {
+            TeamRepository created_team = new TeamRepository();
             if (ModelState.IsValid)
             {
-                db.Teams.Add(team);
-                await db.SaveChangesAsync();
+
+                created_team.Add(team);
+                /*TeamRepository create_team = new TeamRepository();
+                Team result = await create_team.Add(team);*/
                 return RedirectToAction("Index");
+                /*db.Teams.Add(team);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");*/
             }
 
-            return View(team);
+            return View(created_team);
         }
 
         // GET: Teams/Edit/5
