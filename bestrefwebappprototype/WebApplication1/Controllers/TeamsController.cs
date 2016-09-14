@@ -115,18 +115,25 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Teams/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Team team = await db.Teams.FindAsync(id);
-            if (team == null)
+            /* if (id == null)
+             {
+                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+             }
+             Team team = await db.Teams.FindAsync(id);
+             if (team == null)
+             {
+                 return HttpNotFound();
+             }
+             return View(team);*/
+            TeamRepository team = new TeamRepository();
+            var output = team.Get(id);
+            if (output == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(output);
         }
 
         // POST: Teams/Delete/5
@@ -134,9 +141,11 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Team team = await db.Teams.FindAsync(id);
+            /*Team team = await db.Teams.FindAsync(id);
             db.Teams.Remove(team);
-            await db.SaveChangesAsync();
+            await db.SaveChangesAsync();*/
+            TeamRepository team = new TeamRepository();
+            team.Remove(id);
             return RedirectToAction("Index");
         }
 

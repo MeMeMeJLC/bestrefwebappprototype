@@ -74,6 +74,10 @@ namespace WebApplication1.Models
             /*Team team = db.Teams.Find(id);
             db.Teams.Remove(team);
             db.SaveChanges();*/
+            var url = "http://refprototypeapiv5.azurewebsites.net/Api/teams/" + id;
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = client.DeleteAsync(url).Result;
+
         }
 
         public bool Update(Team item)
