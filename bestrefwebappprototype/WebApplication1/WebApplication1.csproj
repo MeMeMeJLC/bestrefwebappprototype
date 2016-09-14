@@ -180,8 +180,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaseRepository.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ITeamRepository.cs" />
+    <Compile Include="Models\IRepository.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\TeamRepository.cs" />

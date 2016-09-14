@@ -24,7 +24,7 @@ namespace WebApplication1.Controllers
         {
             //return View(await db.Teams.ToListAsync());
             TeamRepository teams = new TeamRepository();
-            return View(teams.GetAll());
+            return View(teams.GetAll("teams"));
 
         }
 
@@ -36,7 +36,7 @@ namespace WebApplication1.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TeamRepository team = new TeamRepository();
-            var output = team.Get(id);
+            var output = team.Get(id, "team");
             if (output == null)
             {
                 return HttpNotFound();
@@ -62,12 +62,8 @@ namespace WebApplication1.Controllers
             {
 
                 await created_team.Add(team);
-                /*TeamRepository create_team = new TeamRepository();
-                Team result = await create_team.Add(team);*/
+
                 return RedirectToAction("Index");
-                /*db.Teams.Add(team);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");*/
             }
 
             return View(created_team);
@@ -80,15 +76,9 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            /*Team team = await db.Teams.FindAsync(id);
-            if (team == null)
-            {
-                return HttpNotFound();
-            }
-            return View(team);*/
 
             TeamRepository team = new TeamRepository();
-            var output = team.Get(id);
+            var output = team.Get(id, "team");
             if (output == null)
             {
                 return HttpNotFound();
@@ -106,9 +96,8 @@ namespace WebApplication1.Controllers
             TeamRepository team_edit = new TeamRepository();
             if (ModelState.IsValid)
             {
-                await team_edit.Update(team);
-                /*db.Entry(team).State = EntityState.Modified;
-                await db.SaveChangesAsync();*/
+                int id = team.team_id;
+                await team_edit.Update(team, id);
                 return RedirectToAction("Index");
             }
             return View(team);
@@ -117,18 +106,9 @@ namespace WebApplication1.Controllers
         // GET: Teams/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            /* if (id == null)
-             {
-                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-             }
-             Team team = await db.Teams.FindAsync(id);
-             if (team == null)
-             {
-                 return HttpNotFound();
-             }
-             return View(team);*/
+
             TeamRepository team = new TeamRepository();
-            var output = team.Get(id);
+            var output = team.Get(id, "team");
             if (output == null)
             {
                 return HttpNotFound();
@@ -145,7 +125,7 @@ namespace WebApplication1.Controllers
             db.Teams.Remove(team);
             await db.SaveChangesAsync();*/
             TeamRepository team = new TeamRepository();
-            team.Remove(id);
+            team.Remove(id, "team");
             return RedirectToAction("Index");
         }
 

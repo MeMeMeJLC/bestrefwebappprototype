@@ -11,16 +11,15 @@ using System.Web.Script.Serialization;
 
 namespace WebApplication1.Models
 {
-    public class TeamRepository : IRepository
+    public class BaseRepository : IRepository
     {
         private const string url = "http://refprototypeapiv5.azurewebsites.net/Api/teams/";
         private Team db = new Team();
 
         public async Task<Object> Add(Object item)
         {
-            /*db.Team.Add(item);
-            db.SaveChanges*/
-            var url = "http://refprototypeapiv5.azurewebsites.net/Api/teams/";
+            var table_name = item.GetType();
+            var url = "http://refprototypeapiv5.azurewebsites.net/Api/" + table_name + "s";
             HttpClient client = new HttpClient();
             var response = await client.PostAsJsonAsync(url, item);
 
@@ -31,7 +30,7 @@ namespace WebApplication1.Models
         public Object Get(int id, string table_name)
         {
 
-            var url = "http://refprototypeapiv5.azurewebsites.net/Api/teams/" + id;
+            var url = "http://refprototypeapiv5.azurewebsites.net/Api/" + table_name + "s" + id;
 
             var client = new WebClient();
             var content = client.DownloadString(url);
@@ -43,20 +42,21 @@ namespace WebApplication1.Models
         public IEnumerable<Object> GetAll(string table_name)
         {
 
+            string url = "http://refprototypeapiv5.azurewebsites.net/Api/" + table_name + "s";
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-                var dataObjects = response.Content.ReadAsAsync<IEnumerable<Team>>().Result;
-                return dataObjects;
+            var dataObjects = response.Content.ReadAsAsync<IEnumerable<Team>>().Result;
+            return dataObjects;
 
         }
 
         public void Remove(int id, string table_name)
         {
 
-            var url = "http://refprototypeapiv5.azurewebsites.net/Api/teams/" + id;
+            var url = "http://refprototypeapiv5.azurewebsites.net/Api/" + table_name +"/" + id;
             HttpClient client = new HttpClient();
             HttpResponseMessage response = client.DeleteAsync(url).Result;
 
@@ -65,9 +65,9 @@ namespace WebApplication1.Models
         public async Task<bool> Update(Object item, int id)
         {
             Team team = new Team();
-            
 
-            var url = "http://refprototypeapiv5.azurewebsites.net/Api/teams/" + id;
+            var table_name = item.GetType();
+            var url = "http://refprototypeapiv5.azurewebsites.net/Api/" + table_name + "/" + id;
             HttpClient client = new HttpClient();
             var response = await client.PutAsJsonAsync(url, item);
 
