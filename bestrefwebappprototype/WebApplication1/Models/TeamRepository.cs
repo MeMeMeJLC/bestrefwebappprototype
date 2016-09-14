@@ -78,8 +78,13 @@ namespace WebApplication1.Models
 
         public bool Update(Team item)
         {
+
             /*db.Entry(item).State = EntityState.Modified;
             db.SaveChanges();*/
+            var url = "http://refprototypeapiv5.azurewebsites.net/Api/teams/" + item.team_id;
+            HttpClient client = new HttpClient();
+            var response = client.PutAsJsonAsync<Team>(url, item);
+
             return true;
         }
     }

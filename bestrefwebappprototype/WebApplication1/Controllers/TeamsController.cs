@@ -74,18 +74,26 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Teams/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = await db.Teams.FindAsync(id);
+            /*Team team = await db.Teams.FindAsync(id);
             if (team == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(team);*/
+
+            TeamRepository team = new TeamRepository();
+            var output = team.Get(id);
+            if (output == null)
+            {
+                return HttpNotFound();
+            }
+            return View(output);
         }
 
         // POST: Teams/Edit/5
@@ -95,10 +103,12 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "team_id,team_name,team_coach_first_name,team_coach_last_name")] Team team)
         {
+            TeamRepository team_edit = new TeamRepository();
             if (ModelState.IsValid)
             {
-                db.Entry(team).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                team_edit.Update(team); 
+                /*db.Entry(team).State = EntityState.Modified;
+                await db.SaveChangesAsync();*/
                 return RedirectToAction("Index");
             }
             return View(team);
