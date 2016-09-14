@@ -23,6 +23,13 @@ namespace WebApplication1.Models
             HttpClient client = new HttpClient();
             var response = await client.PostAsJsonAsync(url, item);
 
+            /*string url2 = "http://refprototypeapiv5.azurewebsites.net/Api/" + "players";
+            HttpClient client2 = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response2 = client.GetAsync(url).Result;
+
+            var dataObjects = response2.Content.ReadAsAsync<IEnumerable<Team>>().Result;*/
 
             return item;
         }

@@ -1,4 +1,5 @@
-﻿@model WebApplication1.Models.Player
+﻿@model WebApplication1.Models.Player 
+
 
 @{
     ViewBag.Title = "Create";
@@ -15,6 +16,7 @@
         <h4>Player</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
             @Html.LabelFor(model => model.team_id, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -22,7 +24,6 @@
                 @Html.ValidationMessageFor(model => model.team_id, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.player_firstname, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
