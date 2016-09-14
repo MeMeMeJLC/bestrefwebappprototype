@@ -29,18 +29,19 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Teams/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Details(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = await db.Teams.FindAsync(id);
-            if (team == null)
+            TeamRepository team = new TeamRepository();
+            var output = team.Get(id);
+            if (output == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(output);
         }
 
         // GET: Teams/Create

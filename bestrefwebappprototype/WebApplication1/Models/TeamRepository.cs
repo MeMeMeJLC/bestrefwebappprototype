@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace WebApplication1.Models
 {
@@ -24,9 +27,24 @@ namespace WebApplication1.Models
         public Team Get(int id)
         {
             //return db.Teams.Find(id);  
-            Team team = new Team();
-            return team;     
-         }
+            /* Team team = new Team();
+             return team; */
+            var url = "http://refprototypeapiv5.azurewebsites.net/Api/teams/" + id;
+
+            /*HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = client.GetAsync(url).Result;
+
+            TeamRepository team = new TeamRepository();
+            team = response.Content.ReadAsAsync();
+            return dataObject;*/
+            var client = new WebClient();
+            var content = client.DownloadString(url);
+            var serializer = new JavaScriptSerializer();
+            var jsonContent = serializer.Deserialize<Team>(content);
+            return jsonContent;
+        }
 
         public IEnumerable<Team> GetAll()
         {
