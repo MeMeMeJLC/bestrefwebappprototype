@@ -61,7 +61,7 @@ namespace WebApplication1.Controllers
             if (ModelState.IsValid)
             {
 
-                created_team.Add(team);
+                await created_team.Add(team);
                 /*TeamRepository create_team = new TeamRepository();
                 Team result = await create_team.Add(team);*/
                 return RedirectToAction("Index");
@@ -106,7 +106,7 @@ namespace WebApplication1.Controllers
             TeamRepository team_edit = new TeamRepository();
             if (ModelState.IsValid)
             {
-                team_edit.Update(team); 
+                await team_edit.Update(team);
                 /*db.Entry(team).State = EntityState.Modified;
                 await db.SaveChangesAsync();*/
                 return RedirectToAction("Index");

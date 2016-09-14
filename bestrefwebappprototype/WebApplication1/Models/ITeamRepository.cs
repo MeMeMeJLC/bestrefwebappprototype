@@ -10,8 +10,8 @@ namespace WebApplication1.Models
     {
         IEnumerable<Team> GetAll();
         Team Get(int id);
-        Team Add(Team item);
+        Task<Team> Add(Team item);
         void Remove(int id);
-        bool Update(Team item);
+        Task<bool> Update(Team item);
     }
 }

@@ -19,14 +19,14 @@ namespace WebApplication1.Models
         {
 
         }
-        public Team Add(Team item)
+        public async Task<Team> Add(Team item)
         {
             /*db.Team.Add(item);
             db.SaveChanges*/
             var url = "http://refprototypeapiv5.azurewebsites.net/Api/teams/";
             HttpClient client = new HttpClient();
-            var response = client.PostAsJsonAsync<Team>(url, item);
- 
+            var response = await client.PostAsJsonAsync(url, item);
+
 
             return item;
         }
@@ -80,14 +80,14 @@ namespace WebApplication1.Models
 
         }
 
-        public bool Update(Team item)
+        public async Task<bool> Update(Team item)
         {
 
             /*db.Entry(item).State = EntityState.Modified;
             db.SaveChanges();*/
             var url = "http://refprototypeapiv5.azurewebsites.net/Api/teams/" + item.team_id;
             HttpClient client = new HttpClient();
-            var response = client.PutAsJsonAsync<Team>(url, item);
+            var response = await client.PutAsJsonAsync(url, item);
 
             return true;
         }
